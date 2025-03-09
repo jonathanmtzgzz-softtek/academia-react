@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router';
 import './App.css';
 import Login from './components/Login';
 import { AuthProvider } from './hooks/useAuth';
+import Signup from './components/Signup';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
                 ></Login>
               }
             />
+            <Route path='/signup' element={<Signup></Signup>} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>

@@ -81,7 +81,7 @@ export default function Login({ mail }) {
           >
             Iniciar sesión
           </Button>
-          ¿Eres nuevo en Softasks? <Link to={''}>¡Regístrate!</Link>
+          ¿Eres nuevo en Softasks? <Link to={'/signup'}>¡Regístrate!</Link>
         </Form.Item>
       </Form>
     </>
