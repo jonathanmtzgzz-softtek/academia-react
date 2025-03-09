@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
 import './App.css';
-import Login from './components/Login';
 import { AuthProvider } from './hooks/useAuth';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import Login from './components/Login';
 import Signup from './components/Signup';
-import TaskInput from './components/TaskInput';
-import TaskList from './components/TaskList';
+import HomePage from './components/HomePage';
 
 function App() {
   return (
@@ -14,8 +14,14 @@ function App() {
           <Routes>
             <Route path='/login' element={<Login mail={''}></Login>} />
             <Route path='/signup' element={<Signup></Signup>} />
-            <Route path='/taskinput' element={<TaskInput></TaskInput>} />
-            <Route path='/tasklist' element={<TaskList></TaskList>} />
+            <Route
+              path='/homepage'
+              element={
+                <ProtectedRoute>
+                  <HomePage></HomePage>
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </AuthProvider>
       </BrowserRouter>

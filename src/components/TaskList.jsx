@@ -36,9 +36,6 @@ const TaskList = () => {
             const userPermissions = userData.permissions;
             setPermissions(userPermissions);
             setUserName(userData.name);
-
-            console.log('Permisos:', userPermissions);
-            console.log('Nombre:', userData.name);
           } else {
             console.error('No se encontraron datos para el usuario.');
           }
@@ -100,7 +97,7 @@ const TaskList = () => {
       <>
         {permissions?.write && <TaskInput />}
         <Row
-          gutter={[16, 16]} // Espaciado entre filas y columnas
+          gutter={[16, 16]}
           justify='center'
           style={{ marginTop: '20px', minWidth: 385 }}
         >

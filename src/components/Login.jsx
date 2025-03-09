@@ -13,7 +13,7 @@ export default function Login({ mail }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) navigate('/');
+    if (user) navigate('/homepage');
   }, [user, navigate]);
 
   const login = () => {

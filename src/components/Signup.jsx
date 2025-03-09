@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, message } from 'antd';
+import { Button, Form, Input } from 'antd';
 import {
   ArrowLeftOutlined,
   LockOutlined,
@@ -24,8 +24,8 @@ export default function Signup() {
     }
     try {
       await createUser(email, password, userName);
-      message.success('¡Usuario registrado con éxito!');
-      navigate('/');
+      alert('¡Usuario registrado con éxito!');
+      navigate('/homepage');
     } catch (error) {
       console.error('Error creating user:', error);
     }
