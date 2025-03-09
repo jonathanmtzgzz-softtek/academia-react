@@ -3,6 +3,8 @@ import './App.css';
 import Login from './components/Login';
 import { AuthProvider } from './hooks/useAuth';
 import Signup from './components/Signup';
+import TaskInput from './components/TaskInput';
+import TaskList from './components/TaskList';
 
 function App() {
   return (
@@ -10,15 +12,10 @@ function App() {
       <BrowserRouter>
         <AuthProvider>
           <Routes>
-            <Route
-              path='/login'
-              element={
-                <Login
-                  mail={'usuario-leer-borrar-escribir@softtek.com'}
-                ></Login>
-              }
-            />
+            <Route path='/login' element={<Login mail={''}></Login>} />
             <Route path='/signup' element={<Signup></Signup>} />
+            <Route path='/taskinput' element={<TaskInput></TaskInput>} />
+            <Route path='/tasklist' element={<TaskList></TaskList>} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>
