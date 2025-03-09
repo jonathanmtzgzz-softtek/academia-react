@@ -9,6 +9,7 @@ import {
 import { Link, useNavigate } from 'react-router';
 import Title from 'antd/es/typography/Title';
 import { createUser } from '../config/authCall';
+import Swal from 'sweetalert2';
 
 export default function Signup() {
   const [userName, setUserName] = useState('');
@@ -19,15 +20,32 @@ export default function Signup() {
 
   const handleCreateUser = async () => {
     if (password !== rePassword) {
-      alert('Las contraseñas no coinciden, verifica');
+
+      Swal.fire(
+        'Error',
+        'Las contraseñas no coinciden, verifica',
+        'error'
+      );
       return;
     }
     try {
       await createUser(email, password, userName);
-      alert('¡Usuario registrado con éxito!');
+
+      Swal.fire(
+        'Usuario Registrado',
+        '¡Usuario registrado con éxito!',
+        'success'
+      )
+      
       navigate('/homepage');
     } catch (error) {
-      console.error('Error creating user:', error);
+      //console.error('Error creating user:', error);
+
+      Swal.fire(
+        'Error',
+        'Error al crear usuario',
+        'success'
+      )
     }
   };
 
