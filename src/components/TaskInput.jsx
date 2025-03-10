@@ -13,7 +13,7 @@ export default function TaskInput() {
         'Error',
         'No se puede crear la tarea. Ya que algún campo está vacío',
         'error'
-      )
+      );
       return;
     }
 
@@ -22,37 +22,20 @@ export default function TaskInput() {
     if (user) {
       const saveTask = getFirestore();
       try {
-        
         await addDoc(collection(saveTask, 'tasks'), {
           datetime: new Date().toISOString(),
           description: descriptionTask,
           email: user.email,
         });
 
-        // alert("Tarea creada exitosamente");
-        Swal.fire(
-          'Tarea Creada',
-          '',
-          'success'
-        )
-        
+        Swal.fire('Tarea Creada', '', 'success');
+
         setDescriptionTask('');
       } catch (error) {
-        //console.error('Error creando la tarea:', error);
-
-        Swal.fire(
-          'Error',
-          'Error creando la tarea',
-          'error'
-        )
+        Swal.fire('Error', 'Error creando la tarea', 'error');
       }
     } else {
-      
-      Swal.fire(
-        'Error',
-        'No hay un usuario logueado',
-        'error'
-      )
+      Swal.fire('Error', 'No hay un usuario logueado', 'error');
     }
   };
 

@@ -26,10 +26,8 @@ const TaskList = () => {
     const auth = getAuth();
     const firestore = getFirestore(firebaseAcademia);
 
-    // Escuchar cambios en el estado del usuario autenticado
     const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        // Si el usuario está autenticado, obtén sus permisos y nombre
         try {
           const userDoc = await getDoc(doc(firestore, 'users', user.uid));
           if (userDoc.exists()) {
@@ -38,31 +36,17 @@ const TaskList = () => {
             setPermissions(userPermissions);
             setUserName(userData.name);
           } else {
-            //console.error('No se encontraron datos para el usuario.');
-
-            Swal.fire(
-              'Error',
-              'No se encontraron datos del usuario',
-              'error'
-            )
+            Swal.fire('Error', 'No se encontraron datos del usuario', 'error');
           }
         } catch (error) {
-          //console.error('Error obteniendo los datos del usuario:', error);
-
-          Swal.fire(
-            'Error',
-            'Error obteniendo los datos del usuario',
-            'error'
-          )
+          Swal.fire('Error', 'Error obteniendo los datos del usuario', 'error');
         }
       } else {
-        // Si no hay usuario autenticado, reinicia el estado
         setPermissions(null);
         setUserName('');
       }
     });
 
-    // Escuchar las tareas en Firestore
     const q = query(collection(firestore, 'tasks'));
     const unsubscribeTasks = onSnapshot(q, (querySnapshot) => {
       const tasksArray = [];
@@ -72,7 +56,6 @@ const TaskList = () => {
       setTasks(tasksArray.reverse());
     });
 
-    // Limpiar las suscripciones cuando el componente se desmonte
     return () => {
       unsubscribeAuth();
       unsubscribeTasks();
@@ -83,20 +66,9 @@ const TaskList = () => {
     const firestore = getFirestore();
     try {
       await deleteDoc(doc(firestore, 'tasks', taskId));
-      Swal.fire
-      (
-        'Tarea Eliminada',
-        '',
-        'success'
-      )
+      Swal.fire('Tarea Eliminada', '', 'success');
     } catch (error) {
-      //console.error('Error eliminando la tarea:', error);
-
-      Swal.fire(
-        'Error',
-        'Error eliminando la tarea',
-        'error'
-      )
+      Swal.fire('Error', 'Error eliminando la tarea', 'error');
     }
   };
 
@@ -112,21 +84,11 @@ const TaskList = () => {
         description: editedDescription,
       });
 
-      Swal.fire(
-        'Tarea Actualizada',
-        '',
-        'success'
-      )
+      Swal.fire('Tarea Actualizada', '', 'success');
 
       setEditingTaskId(null);
     } catch (error) {
-      //console.error('Error actualizando la tarea:', error);
-
-      Swal.fire(
-        'Error',
-        'Error actualizando la tarea',
-        'error'
-      )
+      Swal.fire('Error', 'Error actualizando la tarea', 'error');
     }
   };
 
@@ -159,9 +121,9 @@ const TaskList = () => {
                 }}
               >
                 <div style={{ flex: 1 }}>
-                  <strong>{userName}</strong>
+                  <strong style={{ fontSize: '12px' }}>{task.email}</strong>
                   <br />
-                  <span style={{ color: 'red' }}>
+                  <span style={{ color: 'red', fontSize: '12px' }}>
                     {new Date(task.datetime).toLocaleString()}
                   </span>
                   <br />
@@ -172,7 +134,7 @@ const TaskList = () => {
                       placeholder='Editar descripción'
                     />
                   ) : (
-                    <p style={{ wordWrap: 'break-word', margin: 0 }}>
+                    <p style={{ wordWrap: 'break-word', margin: '20px 0' }}>
                       {task.description}
                     </p>
                   )}
