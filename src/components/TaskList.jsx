@@ -13,6 +13,7 @@ import {
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import TaskInput from './TaskInput';
 import firebaseAcademia from '../config/firebaseconfig';
+import Swal from 'sweetalert2';
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
@@ -37,10 +38,22 @@ const TaskList = () => {
             setPermissions(userPermissions);
             setUserName(userData.name);
           } else {
-            console.error('No se encontraron datos para el usuario.');
+            //console.error('No se encontraron datos para el usuario.');
+
+            Swal.fire(
+              'Error',
+              'No se encontraron datos del usuario',
+              'error'
+            )
           }
         } catch (error) {
-          console.error('Error obteniendo los datos del usuario:', error);
+          //console.error('Error obteniendo los datos del usuario:', error);
+
+          Swal.fire(
+            'Error',
+            'Error obteniendo los datos del usuario',
+            'error'
+          )
         }
       } else {
         // Si no hay usuario autenticado, reinicia el estado
@@ -70,8 +83,20 @@ const TaskList = () => {
     const firestore = getFirestore();
     try {
       await deleteDoc(doc(firestore, 'tasks', taskId));
+      Swal.fire
+      (
+        'Tarea Eliminada',
+        '',
+        'success'
+      )
     } catch (error) {
-      console.error('Error eliminando la tarea:', error);
+      //console.error('Error eliminando la tarea:', error);
+
+      Swal.fire(
+        'Error',
+        'Error eliminando la tarea',
+        'error'
+      )
     }
   };
 
@@ -86,9 +111,22 @@ const TaskList = () => {
       await updateDoc(doc(firestore, 'tasks', taskId), {
         description: editedDescription,
       });
+
+      Swal.fire(
+        'Tarea Actualizada',
+        '',
+        'success'
+      )
+
       setEditingTaskId(null);
     } catch (error) {
-      console.error('Error actualizando la tarea:', error);
+      //console.error('Error actualizando la tarea:', error);
+
+      Swal.fire(
+        'Error',
+        'Error actualizando la tarea',
+        'error'
+      )
     }
   };
 
